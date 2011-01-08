@@ -38,7 +38,8 @@ YouTube username:
 
 <button id="ListButton" >List</button>
 <button id="ClearButton" >Clear</button>
-	
+<select id="Type" ><option value="uploads" selected=selected >Uploads</option><option value="favorites" >Favorites</option></select>
+
 <div id="videos">
 </div>
 

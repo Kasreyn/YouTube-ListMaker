@@ -3,7 +3,6 @@ function showMyVideos(data) {
 	var feed = data.feed;
 	var entries = feed.entry || [];
 	var html2 = [];
-	//var html = new String()
 	for (var i = 0; i < entries.length; i++) {
 		var entry = entries[i];
 		var title = entry.title.$t;
@@ -30,14 +29,8 @@ function showMyVideos(data) {
 	videos.innerHTML = videos.innerHTML + html2.join('');
 } 
 
-window.onload=function() {
-	document.getElementById('username').focus();
-	document.getElementById('username').select();
-}
-
 function ChainStuff(data) {
 	showMyVideos(data);
-
 	$.each(data.feed.link, function() {
 		if (this.rel == 'next') {
 			$.ajax({ type: 'GET', url: this.href + '&callback=?', dataType: 'json', async: false, success: ChainStuff});
@@ -52,12 +45,27 @@ function ListAll() {
 	var username = document.getElementById('username');
 	var videos = document.getElementById('videos');
 	//var url = 'http://gdata.youtube.com/feeds/users/' + username.value + '/uploads?alt=json-in-script&callback=?&max-results=' + maxresults;
-	var url = 'http://gdata.youtube.com/feeds/api/users/' + username.value + '/uploads?alt=json-in-script&callback=?&max-results=' + maxresults;
+	//var url = 'http://gdata.youtube.com/feeds/api/users/' + username.value + '/uploads?alt=json-in-script&callback=?&max-results=' + maxresults;
+	var url = 'http://gdata.youtube.com/feeds/api/users/' + username.value + '/' + $("#Type").val() + '?alt=json-in-script&callback=?&max-results=' + maxresults;
+
 	//var html = new String();
 	//var html = { str : "<table><thead><tr><th>Link</th><th>Title</th></tr></thead><tbody>" } 
 	//url = 'index.html'; //funny that async: false works when using this but not for cross domain JSON data such as uploads?alt=json-in-script&callback=?
 
-	$.ajax({ type: 'GET', url: url , dataType: 'json', async: false, success: ChainStuff});
+	$("#videos").empty();
+	$.ajax({ 
+		type: 'GET', 
+		url: url , 
+		dataType: 'json',
+		async: false, 
+		/*beforeSend: function(xhr){
+			xhr.setRequestHeader('X-GData-Key', 'key="AI39si5Q52rQuEZFa-hTg9g9V2R_g_qqLx9ENVVgueGYNguYRnw0x4Jw6XL8Q9L3u5Xoczm_4h4_GJT8DnJIY27R43fLtxkqCg"');
+		},*/
+		success: ChainStuff,
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert(XMLHttpRequest + errorThrown);
+		}
+	});
 	//$.getJSON('http://gdata.youtube.com/feeds/users/' + username.value + '/uploads?alt=json&callback=?&max-results=' + maxresults, ChainStuff);
 
 	/*$.ajax({ type: 'GET', url: url , dataType: 'json', async: false, success: function(data) { 
@@ -87,10 +95,12 @@ function ListAll() {
 		alert(videos.innerHTML);
 	});*/
 
-	document.getElementById('username').focus();
-	document.getElementById('username').select();
-
+	$("#username").focus().select();
 }
+
+$(document).ready(function(){
+	$("#username").focus().select();
+});
 
 $(function() {
 	$("#ListButton").click(function(event) {
