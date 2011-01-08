@@ -6,12 +6,8 @@
 <title>List all videos uploaded by specified user</title>
 <link rel="Stylesheet" type="text/css" href="css/styles.css" />
 <script src="scripts/jquery-1.3.1.js" type="text/javascript"></script>
-<script src="scripts/youtube_list_all.js" t ype="ext/javascript"></script>
-<script type="text/javascript" src="http://swfobject.googlecode.com/svn/trunk/swfobject/swfobject.js"></script>
-<script type="text/javascript"> function loadVideo(playerUrl, autoplay) {
-  swfobject.embedSWF(playerUrl + '&rel=1&border=0&fs=1&autoplay=' + (autoplay?1:0), 'player', '320', '240', '9.0.0', false, false, {allowfullscreen: 'true'});	}
-</script>
-
+<!--<script src="http://swfobject.googlecode.com/svn/trunk/swfobject/swfobject.js" type="text/javascript"></script>-->
+<script src="scripts/youtube_list_all.js" type="text/javascript"></script>
 </head>
 
 <?php
@@ -23,10 +19,8 @@
 	}
 ?>
 
-
 <div id="playerContainer" style="width: 20em; height: 180px; float: right;"><object id="player"></object></div><br>
 YouTube username:
-
 <?php
 	if (isset($_GET['user'])) {
 		echo '<input type="text" id="username" value="' . $_GET['user'] . '"></input>';
@@ -35,15 +29,9 @@ YouTube username:
 		echo '<input type="text" id="username" value="Deckswax"></input>';
 	}
 ?>
+<button id="ListButton" >List</button> <button id="ClearButton" >Clear</button> <select id="Type" ><option value="uploads" selected=selected >Uploads</option><option value="favorites" >Favorites</option></select>
 
-<button id="ListButton" >List</button>
-<button id="ClearButton" >Clear</button>
-<select id="Type" ><option value="uploads" selected=selected >Uploads</option><option value="favorites" >Favorites</option></select>
-
-<div id="videos">
-</div>
-
-
+<div id="videos"></div>
 
 </body>
 </html>

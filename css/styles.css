@@ -70,6 +70,14 @@ h4 { margin:1em 0 0 0; }
     font-size: smaller;     
 }
 
+
+td {white-space: pre;} 
+
+#videos {
+	white-space: pre;
+	width: 100%;
+}
+
 span.tip {
     border-bottom: 1px solid #eee;
 }
