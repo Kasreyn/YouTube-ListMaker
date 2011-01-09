@@ -6,6 +6,7 @@ function showMyVideos(data) {
 	for (var i = 0; i < entries.length; i++) {
 		var title = entries[i].title.$t;
 		var href = entries[i].link[0].href;
+		var index = data.feed.openSearch$totalResults.$t - (data.feed.openSearch$startIndex.$t + i);
 		var thumbnailUrl;
 		var playerUrl;
 		if (entries[i].media$group.media$thumbnail != undefined) thumbnailUrl = entries[i].media$group.media$thumbnail[0].url;
@@ -15,24 +16,24 @@ function showMyVideos(data) {
 		//html2.push('<tr><td><a href=', href, '>', href, '</a></td><td>', title, '</td></tr>');
 		//html2.push('<a href=', href, '>', href, '</a><img class="playicon" onclick="loadVideo(\'', playerUrl, '\', true)" src=\'img/play.gif\'', '</img><span class="title"> ', title, '</span>', '<br>');
 		//html2.push('<tr><td><a href=', href, '>', href, '</a></td><td>&nbsp;&nbsp;<img onclick="loadVideo(\'', playerUrl, '\', true)" src=\'img/play.gif\'></img>&nbsp;&nbsp;</td><td>', title, '</td></tr>');
-		ylinks.push('<tr><td><a href=', href, '>', href, '</a></td><td>&nbsp;&nbsp;<img onclick="loadVideo(\'', playerUrl, '\', true)" src=\'img/play.gif\'></img>&nbsp;&nbsp;</td><td>', title, '</td></tr>');
+		ylinks.push('<tr><td><a href=', href, '>', href, '</a></td><td>&nbsp;&nbsp;<img onclick="loadVideo(\'', playerUrl, '\', true)" src=\'img/play.gif\'></img>&nbsp;&nbsp;</td><td>', title, '</td><td>', index, '</td></tr>');
 	}
 	//$("#videos").append(html2.join(''));
-	$("#videos").html(ylinks.join(''));
 } 
 
 function ChainStuff(data) {
+	var hasmore = false;
 	showMyVideos(data);
 	$.each(data.feed.link, function() {
 		if (this.rel == 'next') {
-			$.ajax({ type: 'GET', url: this.href + '&callback=?', dataType: 'json', async: false, success: ChainStuff });
-		}
-		else {
-			//$("#videos").append("</tbody></table>");
-			/*ylinks.push('</tbody></table>');
-			$("#videos").html(ylinks.join(''));*/
+			$.ajax({ type: 'GET', url: this.href + '&callback=?', dataType: 'json', async: true, success: ChainStuff });
+			hasmore = true;
 		}
 	});
+	if (!hasmore) {
+		ylinks.push('</tbody></table>');
+		$("#videos").html(ylinks.join(''));
+	}
 } 
 
 function ListAll() {
@@ -41,8 +42,8 @@ function ListAll() {
 	$("#videos").empty();
 	//$("#videos").append('<table><thead><tr><th>Link</th><th>Play</th><th>Title</th></tr></thead><tbody>');
 	ylinks = [];
-	ylinks.push('<table><thead><tr><th>Link</th><th>Play</th><th>Title</th></tr></thead><tbody>');
-	$.ajax({ type: 'GET', url: url, dataType: 'json', async: false, success: ChainStuff });
+	ylinks.push('<table><thead><tr><th>Link</th><th>Play</th><th>Title</th><th>Index</th></tr></thead><tbody>');
+	$.ajax({ type: 'GET', url: url, dataType: 'json', async: true, success: ChainStuff });
 	$("#username").focus().select();
 } 
 

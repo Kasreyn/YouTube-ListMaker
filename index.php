@@ -6,7 +6,7 @@
 <title>List all videos uploaded by specified user</title>
 <link rel="Stylesheet" type="text/css" href="css/styles.css" />
 <script src="scripts/jquery-1.3.1.js" type="text/javascript"></script>
-<!--<script src="http://swfobject.googlecode.com/svn/trunk/swfobject/swfobject.js" type="text/javascript"></script>-->
+<script src="http://swfobject.googlecode.com/svn/trunk/swfobject/swfobject.js" type="text/javascript"></script>
 <script src="scripts/youtube_list_all.js" type="text/javascript"></script>
 </head>
 

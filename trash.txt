@@ -1,0 +1,54 @@
+var t_ent = { entries: [] };
+    var index = { val: 1 };
+
+
+	//url = 'index.html'; //funny that async: false works when using this but not for cross domain JSON data such as uploads?alt=json-in-script&callback=?
+    //var url = 'http://gdata.youtube.com/feeds/users/' + username.value + '/uploads?alt=json-in-script&callback=?&max-results=' + maxresults;
+    //var url = 'http://gdata.youtube.com/feeds/api/users/' + username.value + '/uploads?alt=json-in-script&callback=?&max-results=' + maxresults;
+
+
+
+/*$.ajax({ type: 'GET', url: url , dataType: 'json', async: false, success: function(data) {
+            alert(data);
+            showMyVideos(data,t_ent);
+            for (index=2;index<=data.feed.openSearch$totalResults.$t/maxresults;index=index+1) {
+                $.ajax({ type: 'GET', url: url + '&start-index=' + index*maxresults , dataType: 'json',  contentType: "application/json; charset=utf-8", async: false, success: function(data) {
+                        showMyVideos(data,t_ent);
+                    }
+                });
+            }
+        }
+        , error: function(request,data) {
+            alert("Error:" + data + request);
+        }
+    });*/
+
+
+    /*var test = []
+    for (i = 0; i < t_ent.entries.length; i++) {
+        test.push(t_ent.entries[i].title.$t, "\n");
+    }
+    alert(test.join(''));*/
+
+
+        /*beforeSend: function(xhr){
+            xhr.setRequestHeader('X-GData-Key', 'key="AI39si5Q52rQuEZFa-hTg9g9V2R_g_qqLx9ENVVgueGYNguYRnw0x4Jw6XL8Q9L3u5Xoczm_4h4_GJT8DnJIY27R43fLtxkqCg"');
+        },*/
+
+
+//$.getJSON('http://gdata.youtube.com/feeds/users/' + username.value + '/uploads?alt=json&callback=?&max-results=' + maxresults, ChainStuff)
+
+
+;
+
+    /*$.getJSON('http://gdata.youtube.com/feeds/users/' + username.value + '/uploads?alt=json-in-script&callback=?&start-index=1&max-results=' + maxresults, function(data) {
+        showMyVideos(data);
+        for (index=1;index<=data.feed.openSearch$totalResults.$t/maxresults;index=index+1) {
+            $.getJSON('http://gdata.youtube.com/feeds/users/' + username.value + '/uploads?alt=json-in-script&callback=?&start-index=' + index*maxresults + '&max-results=' + maxresults, function(data) {
+                showMyVideos(data);
+            });
+        }
+        videos.innerHTML = videos.innerHTML + '</tbody></table>';
+        alert(videos.innerHTML);
+    });*/
+
